@@ -38,7 +38,7 @@ export const HomeHero = () => {
               color="primary.main"
               variant="inherit"
             >
-              User Experience
+              User Experience, Austin Washam
             </Typography>
             , you focus on Developing.
           </Typography>
