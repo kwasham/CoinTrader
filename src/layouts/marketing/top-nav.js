@@ -129,11 +129,11 @@ export const TopNav = (props) => {
                     letterSpacing: '0.3px',
                     lineHeight: 2.5,
                     '& span': {
-                      color: 'primary.main',
+                      color: 'primary.secondary',
                     },
                   }}
                 >
-                  Devias Kit <span>PRO</span>
+                  Devias Kit <span>PROP</span>
                 </Box>
               )}
             </Stack>

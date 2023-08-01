@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 import { Footer } from './footer';
 import { SideNav } from './side-nav';
 import { TopNav } from './top-nav';
+// import { MainNavbar } from './main-navbar';
 import { useMobileNav } from './use-mobile-nav';
 
 const LayoutRoot = styled('div')(({ theme }) => ({
@@ -20,6 +21,7 @@ export const Layout = (props) => {
   return (
     <>
       <TopNav onMobileNavOpen={mobileNav.handleOpen} />
+      {/* <MainNavbar onMobileNavOpen={mobileNav.handleOpen} /> */}
       {!lgUp && (
         <SideNav
           onClose={mobileNav.handleClose}
