@@ -88,6 +88,7 @@ export default function HomePage() {
 
   let bids = [];
   let asks = [];
+  //TODO: refactor this
   if (orderbook) {
     bids = Object.entries(orderbook.bids).map(([price_level, new_quantity]) => ({
       id: price_level,
