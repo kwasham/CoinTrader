@@ -65,6 +65,8 @@ export default async function handler(req, res) { // Make the handler function a
     
     const baseAccountBalance = await getAccountBalance("d746df4a-6be9-5ba0-a448-c49825b38696"); // Await the function call
     const quoteAccountBalance = await getAccountBalance("6d835375-4879-5576-81a8-408c607a7f97"); // Await the function call
+    const base_increment = product.base_increment;
+    const quote_increment = product.quote_increment;
     console.log('baseAccountBalance:', baseAccountBalance);
     console.log('quoteAccountBalance:', quoteAccountBalance);
     // Add the balances to the tradeData object
@@ -72,6 +74,8 @@ export default async function handler(req, res) { // Make the handler function a
     tradeData.quoteAccountBalance = quoteAccountBalance;
     tradeData.baseIncrement = baseIncrement;
     tradeData.quoteIncrement = quoteIncrement;
+    tradeData.base_increment = base_increment;
+    tradeData.quote_increment = quote_increment;
 
     // TODO: Implement your webhook handling logic
     // You can further process the webhookData here, e.g., store it in a database, trigger some actions, etc.
