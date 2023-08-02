@@ -269,7 +269,7 @@ export const createComponents = () => {
     },
     MuiLink: {
       defaultProps: {
-        underline: 'hover',
+        underline: 'none',
       },
     },
     MuiListItemIcon: {

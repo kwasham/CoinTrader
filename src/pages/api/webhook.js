@@ -36,21 +36,42 @@ const getAccountBalance = async (accountUUID) => {
   }
 };
 
+const getProduct = async (ticker) => {
+  try {
+    const response = await fetch(`https://d8f7-24-27-36-117.ngrok-free.app/api/coinbase?ticker=${ticker}`);
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const result = await response.json(); // Await the response
+    return result;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
 export default async function handler(req, res) { // Make the handler function async
   if (req.method === 'POST') {
     // Process the incoming webhook data here
     const tradeData = req.body;
-
+    const ticker = tradeData.ticker.replace('USDT', '-USDT')
     // Log the received webhook data (for demonstration purposes)
     console.log('Received tradeData:', tradeData);
-
-    const baseAccountBalance = await getAccountBalance("57a84a84-fa47-52d6-aab1-f3302e267d4b"); // Await the function call
+    // get the precision of the ticker
+    const product = await getProduct(ticker);
+    const baseIncrement = product.base_increment;
+    const quoteIncrement = product.quote_increment;
+    
+    const baseAccountBalance = await getAccountBalance("d746df4a-6be9-5ba0-a448-c49825b38696"); // Await the function call
     const quoteAccountBalance = await getAccountBalance("6d835375-4879-5576-81a8-408c607a7f97"); // Await the function call
     console.log('baseAccountBalance:', baseAccountBalance);
     console.log('quoteAccountBalance:', quoteAccountBalance);
     // Add the balances to the tradeData object
     tradeData.baseAccountBalance = baseAccountBalance;
     tradeData.quoteAccountBalance = quoteAccountBalance;
+    tradeData.baseIncrement = baseIncrement;
+    tradeData.quoteIncrement = quoteIncrement;
 
     // TODO: Implement your webhook handling logic
     // You can further process the webhookData here, e.g., store it in a database, trigger some actions, etc.

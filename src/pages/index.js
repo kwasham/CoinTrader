@@ -6,6 +6,7 @@ import { HomeFaqs } from 'src/sections/home/home-faqs';
 import { HomeFeatures } from 'src/sections/home/home-features';
 import { HomeHero } from 'src/sections/home/home-hero';
 import { HomeReviews } from 'src/sections/home/home-reviews';
+import TopTenTable from 'src/sections/home/top-ten-table';
 
 const Page = () => {
   usePageView();
@@ -14,6 +15,7 @@ const Page = () => {
     <>
       <Seo />
       <main>
+        <TopTenTable />
         <HomeHero />
         <HomeFeatures />
         <HomeReviews />

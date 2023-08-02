@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import { format } from 'date-fns';
 import numeral from 'numeral';
 import ArrowRightIcon from '@untitled-ui/icons-react/build/esm/ArrowRight';

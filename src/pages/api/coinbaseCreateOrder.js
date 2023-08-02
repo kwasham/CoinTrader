@@ -14,14 +14,18 @@ export default async function handler(req, res) {
     console.log('request body: ', req.body)
     try {
       const ticker = req.body.ticker.replace('USDT', '-USDT')
+
       const clientOrderId = uuidv4();; // Replace with your unique client order ID
       const product_id = ticker; // Replace with the product ID for the asset-pair (e.g., 'BTC-USD')
     //   const side = req.body.order.action.toUpperCase(); // Replace with 'BUY' or 'SELL' depending on the order side
         const side = req.body.order.toUpperCase(); // Replace with 'BUY' or 'SELL' depending on the order side
         const quoteAccountBalance = Number(req.body.quoteAccountBalance);
         const baseAccountBalance = Number(req.body.baseAccountBalance);
-        const quote_size = (quoteAccountBalance * 0.99).toFixed(2);
-        const base_size = (baseAccountBalance * 0.99).toFixed(8);
+        const quoteDecimalPlaces = req.body.quoteIncrement.split('.')[1].length;
+        const baseDecimalPlaces = req.body.baseIncrement.split('.')[1].length;
+        const quote_size = (quoteAccountBalance * 0.99).toFixed(quoteDecimalPlaces);
+        const base_size = (baseAccountBalance * 0.99).toFixed(baseDecimalPlaces);
+        console.log("quoteAccountBalance", quoteAccountBalance, "baseAccountBalance", baseAccountBalance, "quoteDecimalPlaces", quoteDecimalPlaces, "baseDecimalPlaces", baseDecimalPlaces, "quote_size", quote_size, "base_size", base_size)
 
       const timestamp = Math.floor(Date.now() / 1000).toString();
       const requestPath = '/api/v3/brokerage/orders';
@@ -54,6 +58,7 @@ export default async function handler(req, res) {
         },
         body,
       };
+       
 
       const response = await fetch(`${baseUrl}${requestPath}`, requestOptions);
       if (!response.ok) {
