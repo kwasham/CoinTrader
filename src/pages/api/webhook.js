@@ -65,7 +65,7 @@ export default async function handler(req, res) { // Make the handler function a
     const baseIncrement = product.base_increment;
     const quoteIncrement = product.quote_increment;
     
-    const baseAccountBalance = await getAccountBalance("d746df4a-6be9-5ba0-a448-c49825b38696"); // Await the function call
+    const baseAccountBalance = await getAccountBalance("78e53cf8-660a-595a-9e2b-beea9c1abbe4"); // Await the function call
     const quoteAccountBalance = await getAccountBalance("6d835375-4879-5576-81a8-408c607a7f97"); // Await the function call
     
     console.log('baseAccountBalance:', baseAccountBalance);
