@@ -1,7 +1,7 @@
 
 
 export default async function handler(req, res) {
-  const url = 'https://coin-trader-q8yl910d4-kwasham.vercel.app/api/webhook';
+  const url = 'https://coin-trader-erq2baex5-kwasham.vercel.app/api/webhook';
   const data = {
     "order" : "sell",
     "ticker": "XLMUSDT",

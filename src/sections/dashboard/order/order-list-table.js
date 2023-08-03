@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import numeral from 'numeral';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -18,6 +18,7 @@ const statusMap = {
 };
 
 export const OrderListTable = (props) => {
+  
   const {
     count = 0,
     items = [],
@@ -27,22 +28,33 @@ export const OrderListTable = (props) => {
     page = 0,
     rowsPerPage = 0,
   } = props;
+  console.log(rowsPerPage);
+  
 
   return (
     <div>
       <Table>
         <TableBody>
           {items.map((order) => {
-            const createdAtMonth = format(order.createdAt, 'LLL').toUpperCase();
-            const createdAtDay = format(order.createdAt, 'd');
-            const totalAmount = numeral(order.totalAmount).format(`${order.currency}0,0.00`);
+            let createdAtMonth, createdAtDay;
+
+            if (order.created_time && !isNaN(new Date(order.created_time).getTime())) {
+              const parsedDate = parseISO(order.created_time);
+              createdAtMonth = format(parsedDate, 'LLL').toUpperCase();
+              createdAtDay = format(parsedDate, 'd');
+            } else {
+              console.error(`Invalid date for order ${order.order_id}: ${order.created_time}`);
+              createdAtMonth = 'Invalid date';
+              createdAtDay = 'Invalid date';
+            }
+            const totalAmount = numeral(order.filled_value).format(`${order.currency}0,0.00`);
             const statusColor = statusMap[order.status] || 'warning';
 
             return (
               <TableRow
                 hover
-                key={order.id}
-                onClick={() => onSelect?.(order.id)}
+                key={order.order_id}
+                onClick={() => onSelect?.(order.order_id)}
                 sx={{ cursor: 'pointer' }}
               >
                 <TableCell
@@ -75,7 +87,8 @@ export const OrderListTable = (props) => {
                     </Typography>
                   </Box>
                   <Box sx={{ ml: 2 }}>
-                    <Typography variant="subtitle2">{order.number}</Typography>
+                    <Typography variant="subtitle2">{order.product_id}</Typography>
+                    <Typography variant="subtitle2">{order.side}</Typography>
                     <Typography
                       color="text.secondary"
                       variant="body2"

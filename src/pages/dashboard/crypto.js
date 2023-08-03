@@ -25,37 +25,13 @@ const now = new Date();
 const Page = () => {
   const settings = useSettings();
   const theme = useTheme();
-  const [orders, setOrders] = useState([]);
-
+  
   usePageView();
 
-  useEffect(() => {
-    fetch('../api/coinbase?type=orders')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        
-        setOrders(data.accounts);
-      })
-      
-      .catch((error) => console.error('Error fetching data:', error));
-  }, []);
-  console.log(orders);
+  
 
   return (
     <>
-     <div>
-      {/* Render your orders here */}
-      {orders.map((order, index) => (
-        <div key={index}>
-          {order.uuid}
-        </div>
-      ))}
-    </div>
       <Seo title="Dashboard: Crypto" />
       <Box
         component="main"

@@ -114,12 +114,27 @@ const useCurrentOrder = (orders, orderId) => {
 
 const Page = () => {
   const rootRef = useRef(null);
+  const [orders, setOrders] = useState([]);
   const ordersSearch = useOrdersSearch();
   const ordersStore = useOrdersStore(ordersSearch.state);
   const dialog = useDialog();
   const currentOrder = useCurrentOrder(ordersStore.orders, dialog.data);
 
   usePageView();
+
+  useEffect(() => {
+    async function fetchOrders() {
+      try {
+        const response = await fetch('/api/orders');
+        const ordersData = await response.json();
+        setOrders(ordersData.orders);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }
+    }
+  
+    fetchOrders();
+  }, []);
 
   const handleOrderOpen = useCallback(
     (orderId) => {
@@ -134,7 +149,8 @@ const Page = () => {
     },
     [dialog]
   );
-
+  
+    
   return (
     <>
       <Seo title="Dashboard: Order List" />
@@ -194,8 +210,8 @@ const Page = () => {
             />
             <Divider />
             <OrderListTable
-              count={ordersStore.ordersCount}
-              items={ordersStore.orders}
+              count={orders.length}
+              items={orders}
               onPageChange={ordersSearch.handlePageChange}
               onRowsPerPageChange={ordersSearch.handleRowsPerPageChange}
               onSelect={handleOrderOpen}
