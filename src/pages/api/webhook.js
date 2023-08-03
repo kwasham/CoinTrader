@@ -21,6 +21,36 @@ const handleCreateOrder = async (tradeData) => {
   }
 };
 
+const getListAccounts = async (base, quote) => {
+  try {
+    console.log('base: ', base);
+    // Fetch the account details to get the available balance for the base currency (e.g., BTC)
+    const response = await fetch('https://d8f7-24-27-36-117.ngrok-free.app/api/coinbase');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    console.log('data: ', data);
+    const base_account = data.accounts.find((account) => account.currency === base);
+    console.log('base_account: ', base_account);
+    const quote_account = data.accounts.find((account) => account.currency === quote);
+    console.log('quote_account: ', quote_account);
+    if (!base_account) {
+      throw new Error('base account not found');
+    }
+    const base_amount = base_account.available_balance.value
+
+    const quote_amount = quote_account.available_balance.value
+    //const formattedSize = (Math.floor(baseSize / baseIncrement) * baseIncrement).toFixed(8);
+
+    // Create the order to sell 100% of the base size (BTC)
+    return {base_amount, quote_amount}
+    
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
 const getAccountBalance = async (accountUUID) => {
   try {
     const response = await fetch(`https://d8f7-24-27-36-117.ngrok-free.app/api/coinbase?account_uuid=${accountUUID}`);
@@ -57,22 +87,25 @@ export default async function handler(req, res) { // Make the handler function a
   if (req.method === 'POST') {
     // Process the incoming webhook data here
     const tradeData = req.body;
+    const base_symbol = tradeData.ticker.slice(0, -4); // "BTC"
+    const quote_symbol = tradeData.ticker.slice(-4); // "USDT"
     const ticker = tradeData.ticker.replace('USDT', '-USDT')
     // Log the received webhook data (for demonstration purposes)
     console.log('Received tradeData:', tradeData);
-    // get the precision of the ticker
+    
+    const {base_amount, quote_amount} = await getListAccounts(base_symbol, quote_symbol);
     const product = await getProduct(ticker);
     const baseIncrement = product.base_increment;
     const quoteIncrement = product.quote_increment;
     
-    const baseAccountBalance = await getAccountBalance("78e53cf8-660a-595a-9e2b-beea9c1abbe4"); // Await the function call
-    const quoteAccountBalance = await getAccountBalance("6d835375-4879-5576-81a8-408c607a7f97"); // Await the function call
+    // const baseAccountBalance = await getAccountBalance(base_amount); // Await the function call
+    // const quoteAccountBalance = await getAccountBalance(quote_account); // Await the function call
     
-    console.log('baseAccountBalance:', baseAccountBalance);
-    console.log('quoteAccountBalance:', quoteAccountBalance);
+    // console.log('baseAccountBalance:', baseAccountBalance);
+    // console.log('quoteAccountBalance:', quoteAccountBalance);
     // Add the balances to the tradeData object
-    tradeData.baseAccountBalance = baseAccountBalance;
-    tradeData.quoteAccountBalance = quoteAccountBalance;
+    tradeData.baseAccountBalance = base_amount;
+    tradeData.quoteAccountBalance = quote_amount;
     tradeData.quoteIncrement = quoteIncrement;
     tradeData.baseIncrement = baseIncrement;
     

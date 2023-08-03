@@ -1,10 +1,10 @@
 
 
 export default async function handler(req, res) {
-  const url = 'https://coin-trader-erq2baex5-kwasham.vercel.app/api/webhook';
+  const url = 'https://d8f7-24-27-36-117.ngrok-free.app/api/webhook';
   const data = {
-    "order" : "sell",
-    "ticker": "XLMUSDT",
+    "order" : "buy",
+    "ticker": "BTCUSDT",
    "position": "1"
    };
 

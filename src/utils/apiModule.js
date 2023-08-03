@@ -43,7 +43,7 @@ export async function getAccount(accountUUID) {
 }
 
 export async function listAccounts() {
-  console.log('listAccounts')
+  
   return fetchFromApi('GET', '/api/v3/brokerage/accounts');
 }
 

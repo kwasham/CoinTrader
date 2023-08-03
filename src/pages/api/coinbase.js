@@ -64,7 +64,7 @@ export default async function handler(req, res) {
       res.status(200).json(ordersList);
     } else if (account_uuid) {
       const accountDetails = await getAccount(account_uuid);
-      res.status(200).json(accountDetails.account.available_balance.value);
+      res.status(200).json(accountDetails.account);
     } else if (type === 'ticker') {
       const tickerData = await getTicker(ticker);
       res.status(200).json(tickerData);
