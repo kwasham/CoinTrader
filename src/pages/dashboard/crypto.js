@@ -22,13 +22,16 @@ import { CryptoCurrentBalance } from 'src/sections/dashboard/crypto/crypto-curre
 
 const now = new Date();
 
-const Page = () => {
+const Page = ({initialAccounts}) => {
   const settings = useSettings();
   const theme = useTheme();
+  const [accounts, setAccounts] = useState(initialAccounts);
   
   usePageView();
-
+  console.log("accounts", accounts);
   
+  const btc_account = accounts.find((account) => account.currency === 'BTC');
+  console.log("btc_account", btc_account);  
 
   return (
     <>
@@ -95,8 +98,8 @@ const Page = () => {
                       ],
                     },
                   ]}
-                  coinAmount={0.7568}
-                  currency="BTC"
+                  coinAmount={btc_account.available_balance.value}
+                  currency={btc_account.currency}
                   rate={0.56}
                   sx={{ flexBasis: '50%' }}
                   usdValue={16213.2}
@@ -205,3 +208,28 @@ const Page = () => {
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default Page;
+
+
+
+
+export async function getServerSideProps(context) {
+  try {
+    const response = await fetch('http://localhost:3000/api/coinbase');
+    
+    const data = await response.json(); 
+    const accounts = data.accounts.sort((a, b) => parseFloat(b.available_balance.value) - parseFloat(a.available_balance.value));
+    
+    return {
+      props: {
+        initialAccounts: accounts,
+      },
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      props: {
+        initialAccounts: [],
+      },
+    };
+  }
+}

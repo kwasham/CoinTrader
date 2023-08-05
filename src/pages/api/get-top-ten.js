@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-const apiKey = "b5cf63d7-7f9e-4cda-8765-76755ec29679";
+const apiKey = process.env.CMC_API_KEY;
 const coinDataUrl = `https://pro-api.coinmarketcap.com/v2/cryptocurrency/info`;
 const topTenUrl = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest`;
 const quotesUrl = `https://pro-api.coinmarketcap.com/v3/cryptocurrency/quotes/historical`;

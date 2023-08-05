@@ -112,9 +112,9 @@ const useCurrentOrder = (orders, orderId) => {
   }, [orders, orderId]);
 };
 
-const Page = () => {
+const Page = ({initialOrders}) => {
   const rootRef = useRef(null);
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState(initialOrders);
   const ordersSearch = useOrdersSearch();
   const ordersStore = useOrdersStore(ordersSearch.state);
   const dialog = useDialog();
@@ -122,19 +122,7 @@ const Page = () => {
 
   usePageView();
 
-  useEffect(() => {
-    async function fetchOrders() {
-      try {
-        const response = await fetch('/api/orders');
-        const ordersData = await response.json();
-        setOrders(ordersData.orders);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      }
-    }
   
-    fetchOrders();
-  }, []);
 
   const handleOrderOpen = useCallback(
     (orderId) => {
@@ -234,3 +222,25 @@ const Page = () => {
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default Page;
+
+
+export async function getServerSideProps(context) {
+  try {
+    const response = await fetch('http://localhost:3000/api/orders');
+    
+    const orders = await response.json(); 
+    
+    return {
+      props: {
+        initialOrders: orders.orders,
+      },
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      props: {
+        initialOrders: [],
+      },
+    };
+  }
+}

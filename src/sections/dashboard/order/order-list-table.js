@@ -28,14 +28,16 @@ export const OrderListTable = (props) => {
     page = 0,
     rowsPerPage = 0,
   } = props;
-  console.log(rowsPerPage);
   
+  const start = page * rowsPerPage;
+  const end = start + rowsPerPage;
+  const paginatedItems = items.slice(start, end);
 
   return (
     <div>
       <Table>
         <TableBody>
-          {items.map((order) => {
+          {paginatedItems.map((order) => {
             let createdAtMonth, createdAtDay;
 
             if (order.created_time && !isNaN(new Date(order.created_time).getTime())) {
@@ -47,7 +49,7 @@ export const OrderListTable = (props) => {
               createdAtMonth = 'Invalid date';
               createdAtDay = 'Invalid date';
             }
-            const totalAmount = numeral(order.filled_value).format(`${order.currency}0,0.00`);
+            const totalAmount = numeral(order.total_value_after_fees).format(`${order.currency}0,0.00`);
             const statusColor = statusMap[order.status] || 'warning';
 
             return (

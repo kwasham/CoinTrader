@@ -8,14 +8,14 @@ import { HomeHero } from 'src/sections/home/home-hero';
 import { HomeReviews } from 'src/sections/home/home-reviews';
 import TopTenTable from 'src/sections/home/top-ten-table';
 
-const Page = () => {
+const Page = ({topTenData}) => {
   usePageView();
 
   return (
     <>
       <Seo />
       <main>
-        <TopTenTable />
+        <TopTenTable data={topTenData} />
         <HomeHero />
         <HomeFeatures />
         <HomeReviews />
@@ -29,3 +29,24 @@ const Page = () => {
 Page.getLayout = (page) => <MarketingLayout>{page}</MarketingLayout>;
 
 export default Page;
+
+export async function getServerSideProps() {
+  try {
+    console.log("Fetching top ten data...");
+    const response = await fetch("http://localhost:3000/api/get-top-ten");
+    const data = await response.json();
+    console.log("Here is the top ten data: ", data);
+    return {
+      props: {
+        topTenData: data,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        topTenData: [],
+      },
+    };
+  }
+}

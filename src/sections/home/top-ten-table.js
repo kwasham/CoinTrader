@@ -14,26 +14,12 @@ import Link from "next/link";
 //import {ChartLine} from "./sparkline-cell";
 
 
-const TopTenTable = () => {
+const TopTenTable = ({data}) => {
   
-  const [topTen, setTopTen] = useState([]);
+  const [topTen, setTopTen] = useState(data);
   const [watchlist, setWatchlist] = useState([]);
 
-  useEffect(() => {
-    const fetchTopTenData = async () => {
-      try {
-        console.log("Fetching top ten data...");
-        const response = await fetch("../../api/get-top-ten");
-        const data = await response.json();
-        console.log("Here is the top ten data: ", data)
-        setTopTen(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchTopTenData();
-  }, []);
+  
 
   const columns = [
     {
@@ -87,7 +73,25 @@ const TopTenTable = () => {
         </Link>
       ),
     },
-
+    {
+      field: "price",
+      headerName: "Price",
+      width: 100,
+      valueGetter: (params) => {
+        const price = params.row.quote?.USD?.price;
+        if (typeof price === "number") {
+          const decimalPlaces = price >= 1 ? 2 : 4;
+          const formattedPrice = price.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+            minimumFractionDigits: decimalPlaces,
+            maximumFractionDigits: decimalPlaces,
+          });
+          return formattedPrice;
+        }
+        return "-";
+      },
+    },
     {
       field: "percentChange1h",
       headerName: "1h%",
@@ -248,9 +252,20 @@ const TopTenTable = () => {
           columnSortedDescendingIcon: ExpandMoreIcon,
           columnSortedAscendingIcon: ExpandLessIcon,
         }}
+        sx={{
+          "&.MuiDataGrid-root .MuiDataGrid-cell:focus": {
+            outline: "none",
+          },
+          "&.MuiDataGrid-root .MuiDataGrid-columnHeader:focus": {
+            outline: "none",
+          },
+          
+        }}
       />
     </Container>
   );
 };
 
 export default TopTenTable;
+
+
