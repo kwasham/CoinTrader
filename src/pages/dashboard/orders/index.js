@@ -73,11 +73,11 @@ const useOrdersStore = (searchState) => {
     orders: [],
     ordersCount: 0,
   });
-
+  console.log('orderstate',state);
   const handleOrdersGet = useCallback(async () => {
     try {
       const response = await ordersApi.getOrders(searchState);
-
+      console.log('response',response);
       if (isMounted()) {
         setState({
           orders: response.data,
@@ -108,7 +108,7 @@ const useCurrentOrder = (orders, orderId) => {
       return undefined;
     }
 
-    return orders.find((order) => order.id === orderId);
+    return orders.find((order) => order.order_id === orderId);
   }, [orders, orderId]);
 };
 
@@ -127,7 +127,7 @@ const Page = ({initialOrders}) => {
   const handleOrderOpen = useCallback(
     (orderId) => {
       // Close drawer if is the same order
-
+      console.log('orderId',orderId);
       if (dialog.open && dialog.data === orderId) {
         dialog.handleClose();
         return;
@@ -198,8 +198,10 @@ const Page = ({initialOrders}) => {
             />
             <Divider />
             <OrderListTable
-              count={orders.length}
-              items={orders}
+              // count={orders.length}
+              // items={orders}
+              count={ordersStore.ordersCount}
+              items={ordersStore.orders}
               onPageChange={ordersSearch.handlePageChange}
               onRowsPerPageChange={ordersSearch.handleRowsPerPageChange}
               onSelect={handleOrderOpen}
@@ -224,23 +226,23 @@ Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 export default Page;
 
 
-export async function getServerSideProps(context) {
-  try {
-    const response = await fetch('http://localhost:3000/api/orders');
+// export async function getServerSideProps(context) {
+//   try {
+//     const response = await fetch('http://localhost:3000/api/orders');
     
-    const orders = await response.json(); 
+//     const orders = await response.json(); 
     
-    return {
-      props: {
-        initialOrders: orders.orders,
-      },
-    };
-  } catch (err) {
-    console.error(err);
-    return {
-      props: {
-        initialOrders: [],
-      },
-    };
-  }
-}
+//     return {
+//       props: {
+//         initialOrders: orders.orders,
+//       },
+//     };
+//   } catch (err) {
+//     console.error(err);
+//     return {
+//       props: {
+//         initialOrders: [],
+//       },
+//     };
+//   }
+// }

@@ -45,7 +45,7 @@ const CustomApp = (props) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>Devias Kit PRO</title>
+        <title>Test Kit PRO</title>
         <meta
           name="viewport"
           content="initial-scale=1, width=device-width"

@@ -4,18 +4,27 @@ import { applyPagination } from 'src/utils/apply-pagination';
 import { applySort } from 'src/utils/apply-sort';
 
 class OrdersApi {
-  getOrders(request = {}) {
+  async getOrders(request = {}) {
     const { filters, page, rowsPerPage, sortBy, sortDir } = request;
 
-    let data = deepCopy(orders);
-    let count = data.length;
+    // Fetch orders from your API
+    const response = await fetch('/api/orders');
+    
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
 
+    
+    let result = await response.json();
+    let data = result.orders
+    let count = data.length;
+    console.log(data);
     if (typeof filters !== 'undefined') {
       data = data.filter((order) => {
         if (typeof filters.query !== 'undefined' && filters.query !== '') {
           // Checks only the order number, but can be extended to support other fields, such as customer
           // name, email, etc.
-          const containsQuery = (order.number || '')
+          const containsQuery = (order.order_number || '')
             .toLowerCase()
             .includes(filters.query.toLowerCase());
 

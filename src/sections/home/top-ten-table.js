@@ -259,6 +259,12 @@ const TopTenTable = ({data}) => {
           "&.MuiDataGrid-root .MuiDataGrid-columnHeader:focus": {
             outline: "none",
           },
+          "& .MuiDataGrid-cell:focus": {
+            outline: "none",
+          },
+          "& .MuiDataGrid-cell:focus-within": {
+            outline: "none",
+          }
           
         }}
       />

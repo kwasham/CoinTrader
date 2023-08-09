@@ -1,3 +1,4 @@
+
 import PropTypes from 'prop-types';
 import { format, parseISO } from 'date-fns';
 import numeral from 'numeral';
@@ -6,19 +7,19 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TablePagination from '@mui/material/TablePagination';
+import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import { SeverityPill } from 'src/components/severity-pill';
 
 const statusMap = {
-  complete: 'success',
-  pending: 'info',
-  canceled: 'warning',
-  rejected: 'error',
+  FILLED: 'success',
+  OPEN: 'info',
+  CANCELLED: 'warning',
+  FAILED: 'error',
 };
 
 export const OrderListTable = (props) => {
-  
   const {
     count = 0,
     items = [],
@@ -28,29 +29,36 @@ export const OrderListTable = (props) => {
     page = 0,
     rowsPerPage = 0,
   } = props;
-  
-  const start = page * rowsPerPage;
-  const end = start + rowsPerPage;
-  const paginatedItems = items.slice(start, end);
 
   return (
     <div>
       <Table>
+        <TableHead>
+          <TableRow >
+            <TableCell>Time Placed</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell>Type</TableCell>
+            <TableCell>Side</TableCell>
+            <TableCell>Price</TableCell>
+            <TableCell>Amount</TableCell>
+            <TableCell>Fills</TableCell>
+            <TableCell>% Filled</TableCell>
+            <TableCell>Total</TableCell>
+            <TableCell>Status</TableCell>
+          </TableRow>
+        </TableHead>
         <TableBody>
-          {paginatedItems.map((order) => {
-            let createdAtMonth, createdAtDay;
-
-            if (order.created_time && !isNaN(new Date(order.created_time).getTime())) {
-              const parsedDate = parseISO(order.created_time);
-              createdAtMonth = format(parsedDate, 'LLL').toUpperCase();
-              createdAtDay = format(parsedDate, 'd');
-            } else {
-              console.error(`Invalid date for order ${order.order_id}: ${order.created_time}`);
-              createdAtMonth = 'Invalid date';
-              createdAtDay = 'Invalid date';
-            }
-            const totalAmount = numeral(order.total_value_after_fees).format(`${order.currency}0,0.00`);
+          {items.map((order) => {
+            const parsedDate = parseISO(order.created_time);
+            const createdAtMonth = format(parsedDate, 'LLL').toUpperCase();
+            const createdAtTime = format(parsedDate, 'HH:mm');
+            const createdAtDay = format(parsedDate, 'd');
+            const createdAtYear = format(parsedDate, 'yyyy');
             const statusColor = statusMap[order.status] || 'warning';
+            const BaseCurrency = order.product_id.split("-")[0];
+            const QuoteCurrency = order.product_id.split("-")[1];
+          
+          
 
             return (
               <TableRow
@@ -79,25 +87,42 @@ export const OrderListTable = (props) => {
                       align="center"
                       variant="subtitle2"
                     >
-                      {createdAtMonth}
+                      {createdAtMonth + " " + createdAtDay}
                     </Typography>
+                    
                     <Typography
                       align="center"
-                      variant="h6"
+                      variant="subtitle2"
                     >
-                      {createdAtDay}
+                      {createdAtYear}
                     </Typography>
+                   
                   </Box>
-                  <Box sx={{ ml: 2 }}>
-                    <Typography variant="subtitle2">{order.product_id}</Typography>
-                    <Typography variant="subtitle2">{order.side}</Typography>
-                    <Typography
-                      color="text.secondary"
-                      variant="body2"
-                    >
-                      Total of {totalAmount}
-                    </Typography>
-                  </Box>
+                  
+                </TableCell>
+                <TableCell>
+                  {order.product_id}
+                </TableCell>
+                <TableCell>
+                  {order.order_type}
+                </TableCell>
+                <TableCell>
+                  {order.side}
+                </TableCell>
+                <TableCell>
+                {parseFloat(order.average_filled_price).toFixed(2) + " " + QuoteCurrency}
+                </TableCell>
+                <TableCell>
+                  {parseFloat(order.filled_size).toFixed(8) + " " + BaseCurrency}
+                </TableCell>
+                <TableCell>
+                  {order.number_of_fills}
+                </TableCell>
+                <TableCell>
+                  {order.completion_percentage.split(".")[0] + "%"}
+                </TableCell>
+                <TableCell>
+                {parseFloat(order.total_value_after_fees).toFixed(2) + " " + QuoteCurrency}
                 </TableCell>
                 <TableCell align="right">
                   <SeverityPill color={statusColor}>{order.status}</SeverityPill>

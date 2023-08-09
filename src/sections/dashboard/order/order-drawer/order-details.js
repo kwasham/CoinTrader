@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import numeral from 'numeral';
 import Edit02Icon from '@untitled-ui/icons-react/build/esm/Edit02';
 import Button from '@mui/material/Button';
@@ -19,10 +19,10 @@ import { SeverityPill } from 'src/components/severity-pill';
 import { Scrollbar } from 'src/components/scrollbar';
 
 const statusMap = {
-  canceled: 'warning',
-  complete: 'success',
-  pending: 'info',
-  rejected: 'error',
+  CANCELLED: 'warning',
+  FILLED: 'success',
+  OPEN: 'info',
+  FAILED: 'error',
 };
 
 export const OrderDetails = (props) => {
@@ -30,10 +30,11 @@ export const OrderDetails = (props) => {
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
 
   const align = lgUp ? 'horizontal' : 'vertical';
-  const items = order.items || [];
-  const createdAt = format(order.createdAt, 'dd/MM/yyyy HH:mm');
+  const config = order.order_configuration || {};
+  const parsedDate = parseISO(order.created_time);
+  const createdAt = format(parsedDate, 'MM/dd/yyyy hh:mm a');
   const statusColor = statusMap[order.status];
-  const totalAmount = numeral(order.totalAmount).format(`${order.currency}0,0.00`);
+  const totalAmount = numeral(order.totalAmount).format(`${'$'}0,0.00`);
 
   return (
     <Stack spacing={6}>
@@ -64,45 +65,28 @@ export const OrderDetails = (props) => {
             disableGutters
             divider
             label="ID"
-            value={order.id}
+            value={order.order_id}
           />
           <PropertyListItem
             align={align}
             disableGutters
             divider
-            label="Number"
-            value={order.number}
+            label="Order Type"
+            value={order.order_type}
           />
           <PropertyListItem
             align={align}
             disableGutters
             divider
-            label="Customer"
+            label="Trading Pair"
           >
             <Typography
               color="text.secondary"
               variant="body2"
             >
-              {order.customer.name}
+              {order.product_id}
             </Typography>
-            <Typography
-              color="text.secondary"
-              variant="body2"
-            >
-              {order.customer.address1}
-            </Typography>
-            <Typography
-              color="text.secondary"
-              variant="body2"
-            >
-              {order.customer.city}
-            </Typography>
-            <Typography
-              color="text.secondary"
-              variant="body2"
-            >
-              {order.customer.country}
-            </Typography>
+           
           </PropertyListItem>
           <PropertyListItem
             align={align}
@@ -116,14 +100,14 @@ export const OrderDetails = (props) => {
             disableGutters
             divider
             label="Promotion Code"
-            value={order.promotionCode}
+            value="What can we put here?"
           />
           <PropertyListItem
             align={align}
             disableGutters
             divider
             label="Total Amount"
-            value={totalAmount}
+            value={order.total_value_after_fees}
           />
           <PropertyListItem
             align={align}
@@ -159,30 +143,23 @@ export const OrderDetails = (props) => {
         </Stack>
       </Stack>
       <Stack spacing={3}>
-        <Typography variant="h6">Line items</Typography>
+        <Typography variant="h6">Order Config</Typography>
         <Scrollbar>
           <Table sx={{ minWidth: 400 }}>
             <TableHead>
               <TableRow>
-                <TableCell>Description</TableCell>
-                <TableCell>Billing Cycle</TableCell>
-                <TableCell>Amount</TableCell>
+                <TableCell>Key</TableCell>
+                <TableCell>Value</TableCell>
+                
               </TableRow>
             </TableHead>
             <TableBody>
-              {items.map((item) => {
-                const unitAmount = numeral(item.unitAmount).format(`${item.currency}0,0.00`);
-
-                return (
-                  <TableRow key={item.id}>
-                    <TableCell>
-                      {item.name} x {item.quantity}
-                    </TableCell>
-                    <TableCell>{item.billingCycle}</TableCell>
-                    <TableCell>{unitAmount}</TableCell>
-                  </TableRow>
-                );
-              })}
+            {Object.entries(config).map(([key, value]) => (
+            <TableRow key={key}>
+              <TableCell>{key}</TableCell>
+              <TableCell>{JSON.stringify(value)}</TableCell>
+            </TableRow>
+          ))}
             </TableBody>
           </Table>
         </Scrollbar>

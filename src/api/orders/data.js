@@ -2,6 +2,8 @@ import { subDays, subHours } from 'date-fns';
 
 const now = new Date();
 
+
+
 export const orders = [
   {
     id: '5ecb8a6d9f53bfae09e16115',
@@ -404,3 +406,24 @@ export const order = {
   status: 'pending',
   totalAmount: 500.0,
 };
+
+export async function getServerSideProps(context) {
+  try {
+    const response = await fetch('http://localhost:3000/api/orders');
+    
+    const orders = await response.json(); 
+    console.log(orders.orders);
+    return {
+      props: {
+        initialOrders: orders.orders,
+      },
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      props: {
+        initialOrders: [],
+      },
+    };
+  }
+}
