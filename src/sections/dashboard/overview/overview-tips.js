@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 const sliderSettings = {
+  autoplay: true,
   arrows: false,
   dots: true,
   infinite: true,

@@ -1,7 +1,7 @@
 
 
 export default async function handler(req, res) {
-  const url = 'https://b5b9-24-27-36-117.ngrok-free.app/api/webhook';
+  const url = 'https://416e-24-27-36-117.ngrok-free.app/api/webhook';
   const data = {
     "order" : "sell",
     "ticker": "BTCUSDT",

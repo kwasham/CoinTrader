@@ -1,4 +1,5 @@
-require('dotenv').config();
+require('dotenv').config({ path: '../../../.env' });
+
 
 
 const WebSocket = require('ws');
@@ -8,6 +9,8 @@ const fs = require('fs');
 // Derived from your Coinbase Retail API Key
 const SIGNING_KEY = process.env.COINBASE_API_SECRET;
 const API_KEY = process.env.COINBASE_API_KEY;
+
+console.log("signing key", SIGNING_KEY)
 
 if (!SIGNING_KEY.length || !API_KEY.length) {
   throw new Error('missing mandatory environment variable(s)');
@@ -89,8 +92,12 @@ wss.on('connection', (client) => {
   console.log('New client connected');
 
   ws.on('message', function (data) {
-    client.send(data);
-  });
+    wss.clients.forEach((clientSocket) => {
+        if (clientSocket.readyState === WebSocket.OPEN) {
+            clientSocket.send(data);
+        }
+    });
+});
 
   client.on('close', () => {
     console.log('Client disconnected');

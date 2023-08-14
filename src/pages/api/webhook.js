@@ -2,7 +2,7 @@
 // pages/api/webhook.js
 const handleCreateOrder = async (tradeData) => {
   try {
-    const response = await fetch(`https://b5b9-24-27-36-117.ngrok-free.app/api/coinbaseCreateOrder`, {
+    const response = await fetch(`https://416e-24-27-36-117.ngrok-free.app/api/coinbaseCreateOrder`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ const getListAccounts = async (base, quote) => {
   try {
     console.log('base: ', base);
     // Fetch the account details to get the available balance for the base currency (e.g., BTC)
-    const response = await fetch('https://b5b9-24-27-36-117.ngrok-free.app/api/coinbase');
+    const response = await fetch('https://416e-24-27-36-117.ngrok-free.app/api/coinbase');
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -53,7 +53,7 @@ const getListAccounts = async (base, quote) => {
 
 const getAccountBalance = async (accountUUID) => {
   try {
-    const response = await fetch(`https://b5b9-24-27-36-117.ngrok-free.app/api/coinbase?account_uuid=${accountUUID}`);
+    const response = await fetch(`https://416e-24-27-36-117.ngrok-free.app/api/coinbase?account_uuid=${accountUUID}`);
 
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -70,7 +70,7 @@ const getAccountBalance = async (accountUUID) => {
 
 const getProduct = async (ticker) => {
   try {
-    const response = await fetch(`https://b5b9-24-27-36-117.ngrok-free.app/api/coinbase?ticker=${ticker}&type=ticker`);
+    const response = await fetch(`https://416e-24-27-36-117.ngrok-free.app/api/coinbase?ticker=${ticker}&type=ticker`);
 
     if (!response.ok) {
       throw new Error('Network response was not ok');

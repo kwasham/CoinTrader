@@ -37,7 +37,7 @@ export const OverviewPendingIssues = (props) => {
             color="text.secondary"
             variant="body2"
           >
-            Pending Issues
+            Liquidations
           </Typography>
           <Typography
             color="text.primary"

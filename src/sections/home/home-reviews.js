@@ -82,7 +82,7 @@ const reviews = [
 ];
 
 export const HomeReviews = () => (
-  <div>
+  <div >
     <Container maxWidth="lg">
       <Stack
         justifyContent="center"

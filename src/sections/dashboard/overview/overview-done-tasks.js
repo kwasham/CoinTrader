@@ -37,7 +37,7 @@ export const OverviewDoneTasks = (props) => {
             color="text.secondary"
             variant="body2"
           >
-            Done Tasks
+            Bots Deployed
           </Typography>
           <Typography
             color="text.primary"

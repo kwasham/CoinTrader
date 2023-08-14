@@ -37,7 +37,7 @@ export const OverviewOpenTickets = (props) => {
             color="text.secondary"
             variant="body2"
           >
-            Open tickets
+            Open Positions
           </Typography>
           <Typography
             color="text.primary"
