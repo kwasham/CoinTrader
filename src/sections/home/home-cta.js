@@ -22,15 +22,14 @@ export const HomeCta = () => (
           color="inherit"
           variant="h3"
         >
-          Start saving time today!
+          Ready to Elevate Your Crypto Trading Experience?
         </Typography>
         <Typography
           align="center"
           color="inherit"
           variant="subtitle2"
         >
-          Not just a set of tools, the package includes ready-to-deploy conceptual applications
-          written in JavaScript & TypeScript.
+          Join our community and harness the power of advanced analytics, community insights, and more.
         </Typography>
       </Stack>
       <Stack
@@ -46,7 +45,7 @@ export const HomeCta = () => (
           target="_blank"
           variant="contained"
         >
-          Purchase Now
+          Sign Up Now
         </Button>
       </Stack>
     </Container>

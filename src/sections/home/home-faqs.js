@@ -12,29 +12,29 @@ import Typography from '@mui/material/Typography';
 
 const faqs = [
   {
-    question: 'Do you have a free demo to review the code before purchasing?',
+    question: 'How does the backtesting feature work?',
     answer:
-      'Yes, you can check out our open source dashboard template which should give you an overview of the code quality and folder structure. Keep in mind that some aspects may differ from this Paid version.',
+      'Our backtesting feature allows you to test your trading strategies on historical data for optimized outcomes. Use our backtesting engine to simulate your strategy on historical data to fine-tune your strategy.',
   },
   {
-    question: 'How many projects can I build with Devias Kit PRO?',
+    question: 'What exchanges does the trading bot support?',
     answer:
-      "The license is per project (domain), but if you intend to develop an unknown number of projects feel free to contact us and we'll find a solution.",
+      "Our trading bot supports Binance, Coinbase, and Kraken. We're working on adding support for more exchanges.",
   },
   {
-    question: 'How many projects can I build with this template?',
+    question: 'How secure is the flashloan service?',
     answer:
-      'Absolutely! If you intend to charge users for using your product Extended license is created specifically for this context.',
+      'Our flashloan service is built on top of the Aave protocol, which is a decentralized, open-source, and non-custodial liquidity protocol on Ethereum. The Aave protocol is audited by OpenZeppelin and ConsenSys Diligence.',
   },
   {
-    question: 'What browsers does the template support?',
+    question: 'Can I connect with traders directly in the community?',
     answer:
-      "The components in MUI are designed to work in the latest, stable releases of all major browsers, including Chrome, Firefox, Safari, and Edge. We don't support Internet Explorer 11.",
+      "Yes, you can connect with traders directly in the community. You can follow top traders and discover recommended crypto projects. Our community is a great place to learn and share your trading strategies.",
   },
   {
-    question: 'For what kind of projects is the Standard license intended?',
+    question: 'How can I use the openAI chatGPT bot?',
     answer:
-      'The Standard license is designed for internal applications in which staff will access the application. An example could be the back-office dashboard of a public-facing e-commerce website in which staff would sign in and manage inventory, customers, etc.',
+      'Our chatbot is powered by OpenAI and can answer your questions about trading strategies, market trends, and more. You can use the chatbot to get real-time financial strategy insights powered by OpenAI.',
   },
 ];
 

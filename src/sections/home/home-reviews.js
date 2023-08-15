@@ -45,38 +45,38 @@ const QuotesIcon = () => (
 
 const reviews = [
   {
-    author: 'Oded R.',
+    author: 'Sophia M. - Crypto Enthusiast',
     message:
-      "I'm highly satisfied with our decision to use this template. It's actually 2 for 1 - we got a beautiful design(responsive, looks great with so many different options and components) AND we got an excellent source code with an actual project [...]",
+      "I've tried multiple platforms over the years, but this one stands out. The backtesting feature has been a game-changer for my trading strategy. Highly recommended!",
     stars: 5,
   },
   {
-    author: 'Mark S.',
+    author: 'Liam J. - Day Trader',
     message:
-      'I really like the depth and quality with this template. Well constructed and a very useful source of ideas and best practices. I highly recommend it.',
+    "The automated trading bot is seamless. It's like having a personal assistant that never sleeps. Plus, the community insights have led me to some hidden gems in the crypto world.",
     stars: 5,
   },
   {
-    author: 'Lorenz N.',
+    author: 'Aiden L. - Financial Analyst',
     message:
-      'It comes packed with probably more components and feature samples than you will ever need in a single App. The code is well structured and the documentation covers all essential parts. They are maybe not covering [...]',
+    "The integration with OpenAI's ChatGPT is brilliant! Whenever I'm uncertain about a financial strategy, I get instant clarity. It's like having an expert on call 24/7.",
     stars: 5,
   },
   {
-    author: 'Ruthy G.',
-    message: 'I received a kind, considerate and immediate response, thank you very much!',
+    author: 'Olivia G. - Crypto Newbie',
+    message: "Being new to crypto, I was looking for a platform that could guide me without overwhelming me. The community here is supportive, and the tools are intuitive. I've learned so much in just a few weeks!",
     stars: 5,
   },
   {
-    author: 'Dean H.',
+    author: 'Ethan P. - Portfolio Manager',
     message:
-      'While many templates are next.js, the support is quick and AMAZING and I was able to port this to using react-router v6. Very happy with the quality of everything!!!',
+    "Managing multiple crypto assets can be daunting, but this platform's analytics and insights have made my job so much easier. The data accuracy and real-time updates are unmatched.",
     stars: 5,
   },
   {
-    author: 'Cole S.',
+    author: 'Isabella R. - Digital Nomad',
     message:
-      'Great template and great customer support. Easy to customize, code is easy to read, documentation is good. Very happy!',
+    "I love the social community feature. Following experienced traders and joining discussions about trending projects has expanded my crypto horizon. It's not just a platform; it's a learning hub.",
     stars: 5,
   },
 ];

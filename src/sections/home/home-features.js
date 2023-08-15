@@ -12,41 +12,41 @@ import { useTheme } from '@mui/material/styles';
 const features = [
   {
     id: 'experts',
-    title: 'Built by experts',
+    title: 'Backtesting Strategies',
     description:
-      'All of the code follows MUI best practices, it’s written by our in-house team of experts.',
+      'Test your trading strategies on historical data for optimized outcomes. Use our backtesting engine to simulate your strategy on historical data to fine-tune your strategy.',
     imageDark: '/assets/home-features-experts-dark.png',
     imageLight: '/assets/home-features-experts-light.png',
   },
   {
     id: 'figma',
-    title: 'Design Files',
+    title: 'Automated Trading Bots',
     description:
-      "We've included the source Figma files to Plus & Extended licenses so you can get creative! Build layouts with confidence.",
+      "Let our advanced bot handle your trades, ensuring you never miss an opportunity. Our bots are designed to help you execute your trading strategy 24/7. They can place trades even when you're asleep.",
     imageDark: '/assets/home-features-figma-dark.png',
     imageLight: '/assets/home-features-figma-light.png',
   },
   {
     id: 'tech',
-    title: 'Built with modern technologies',
+    title: 'OpenAI ChatGPT Integrations',
     description:
-      'Each template is a well-structured CRA & Next.js project, giving you a codebase that’s productive and enjoyable to work in.',
+      'Have questions? Get real-time financial strategy insights powered by OpenAI. Our chatbot is powered by OpenAI and can answer your questions about trading strategies, market trends, and more.',
     imageDark: '/assets/home-features-tech-dark.png',
     imageLight: '/assets/home-features-tech-light.png',
   },
   {
     id: 'customize',
-    title: 'Easy to customize',
+    title: 'Social Community',
     description:
-      'Everything is styled using global theme overrides, just open the theme file in your editor and change whatever you want.',
+      'Join a thriving community. Follow top traders and discover recommended crypto projects. Our community is a great place to learn and share your trading strategies.',
     imageDark: '/assets/home-features-customize-dark.png',
     imageLight: '/assets/home-features-customize-light.png',
   },
   {
     id: 'productive',
-    title: 'Built with CRA & Next.js',
+    title: 'Flashloan Service',
     description:
-      'Well-structured, thoughtfully componentized CRA & Next.js project, giving you a codebase that’s productive and enjoyable to work in.',
+      'Leverage our flashloan service for quick, uncollateralized loans in the crypto space. Our flashloan service is a great way to get quick access to capital for your trading strategies.',
     imageDark: '/assets/home-features-nextjs-dark.png',
     imageLight: '/assets/home-features-nextjs-light.png',
   },
@@ -143,7 +143,7 @@ export const HomeFeatures = () => {
                     >
                       {feature.description}
                     </Typography>
-                    {feature.id === 'figma' && (
+                    {/* {feature.id === 'figma' && (
                       <Box sx={{ mt: 3 }}>
                         <Button
                           color="success"
@@ -161,7 +161,7 @@ export const HomeFeatures = () => {
                           Preview in Figma
                         </Button>
                       </Box>
-                    )}
+                    )} */}
                   </Box>
                 );
               })}

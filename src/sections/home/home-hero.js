@@ -32,15 +32,15 @@ export const HomeHero = () => {
             variant="h1"
             sx={{ mb: 2 }}
           >
-            Let us worry about the&nbsp;
+            Revolutionize your&nbsp;
             <Typography
               component="span"
               color="primary.main"
               variant="inherit"
             >
-              User Experience
+              Crypto Trading
             </Typography>
-            , you focus on Developing.
+            , and analytics journey
           </Typography>
           <Typography
             color="text.secondary"
@@ -49,8 +49,7 @@ export const HomeHero = () => {
               fontWeight: 500,
             }}
           >
-            A professional kit that comes with ready-to-use MUI components developed with one common
-            goal in mind, help you build faster & beautiful applications.
+            From backtesting to automated trades, get insights, community recommendations, and more—all in one platform.
           </Typography>
           <Stack
             alignItems="center"
@@ -111,9 +110,9 @@ export const HomeHero = () => {
               }
               variant="contained"
             >
-              Live Demo
+              Get Started
             </Button>
-            <Button
+            {/* <Button
               color="inherit"
               component={RouterLink}
               href={paths.components.index}
@@ -124,7 +123,7 @@ export const HomeHero = () => {
               }
             >
               Components
-            </Button>
+            </Button> */}
           </Stack>
         </Box>
         <Box

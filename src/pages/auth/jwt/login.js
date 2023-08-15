@@ -20,7 +20,7 @@ import { useMounted } from 'src/hooks/use-mounted';
 import { usePageView } from 'src/hooks/use-page-view';
 import { useRouter } from 'src/hooks/use-router';
 import { useSearchParams } from 'src/hooks/use-search-params';
-import { Layout as AuthLayout } from 'src/layouts/auth/classic-layout';
+import { Layout as AuthLayout } from 'src/layouts/auth/modern-layout';
 import { paths } from 'src/paths';
 import { AuthIssuer } from 'src/sections/auth/auth-issuer';
 import { Issuer } from 'src/utils/auth';
