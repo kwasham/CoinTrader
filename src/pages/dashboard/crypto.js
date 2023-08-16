@@ -214,7 +214,7 @@ export default Page;
 
 export async function getServerSideProps(context) {
   try {
-    const response = await fetch('http://localhost:3000/api/coinbase');
+    const response = await fetch('https://416e-24-27-36-117.ngrok-free.app/api/coinbase');
     
     const data = await response.json(); 
     const accounts = data.accounts.sort((a, b) => parseFloat(b.available_balance.value) - parseFloat(a.available_balance.value));

@@ -409,7 +409,7 @@ export const order = {
 
 export async function getServerSideProps(context) {
   try {
-    const response = await fetch('http://localhost:3000/api/orders');
+    const response = await fetch('https://416e-24-27-36-117.ngrok-free.app/api/orders');
     
     const orders = await response.json(); 
     console.log(orders.orders);

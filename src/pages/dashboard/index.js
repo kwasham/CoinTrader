@@ -7,7 +7,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
-
+import TopTenTable from 'src/sections/home/top-ten-table';
 import { Seo } from 'src/components/seo';
 import { usePageView } from 'src/hooks/use-page-view';
 import { useSettings } from 'src/hooks/use-settings';
@@ -23,10 +23,11 @@ import { OverviewHelp } from 'src/sections/dashboard/overview/overview-help';
 import { OverviewJobs } from 'src/sections/dashboard/overview/overview-jobs';
 import { OverviewOpenTickets } from 'src/sections/dashboard/overview/overview-open-tickets';
 import { OverviewTips } from 'src/sections/dashboard/overview/overview-tips';
+import { OverviewTrending } from 'src/sections/dashboard/overview/overview-trending';
 
 const now = new Date();
 
-const Page = () => {
+const Page = ({topTenData}) => {
   const settings = useSettings();
 
   usePageView();
@@ -41,6 +42,7 @@ const Page = () => {
           py: 8,
         }}
       >
+        
         <Container maxWidth={settings.stretch ? false : 'xl'}>
           <Grid
             container
@@ -57,7 +59,7 @@ const Page = () => {
                 spacing={4}
               >
                 <div>
-                  <Typography variant="h4">Overview</Typography>
+                  <Typography variant="h4">Today&rsquo;s Cryptocurrency Prices by Market Cap</Typography>
                 </div>
                 <div>
                   <Stack
@@ -78,11 +80,12 @@ const Page = () => {
                 </div>
               </Stack>
             </Grid>
+            <TopTenTable data={topTenData} />
             <Grid
               xs={12}
               md={4}
             >
-              <OverviewDoneTasks amount={31} />
+              <OverviewTrending amount={31} />
             </Grid>
             <Grid
               xs={12}
@@ -285,3 +288,24 @@ const Page = () => {
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default Page;
+
+export async function getServerSideProps() {
+  try {
+    console.log("Fetching top ten data...");
+    const response = await fetch("https://416e-24-27-36-117.ngrok-free.app/api/get-top-ten");
+    const data = await response.json();
+    console.log("Here is the top ten data: ", data);
+    return {
+      props: {
+        topTenData: data,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        topTenData: [],
+      },
+    };
+  }
+}
