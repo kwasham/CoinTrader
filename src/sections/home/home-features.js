@@ -69,7 +69,7 @@ export const HomeFeatures = () => {
         py: '120px',
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <Stack
           spacing={2}
           sx={{ mb: 8 }}

@@ -90,6 +90,15 @@ export const useSections = () => {
               </SvgIcon>
             ),
           },
+          {
+            title: t(tokens.nav.backtest),
+            path: paths.dashboard.backtest,
+            icon: (
+              <SvgIcon fontSize="small">
+                <HomeSmileIcon />
+              </SvgIcon>
+            ),
+          },
         ],
       },
       {

@@ -73,7 +73,7 @@ export const TopNav = (props) => {
       }}
     >
       <Container
-        maxWidth="lg"
+        maxWidth="xl"
         sx={{
           backdropFilter: 'blur(6px)',
           backgroundColor: 'transparent',

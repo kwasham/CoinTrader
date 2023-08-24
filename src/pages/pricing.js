@@ -103,7 +103,7 @@ const Page = () => {
                   icon={<PricingPlanIcon name="standard" />}
                   name="Standard"
                   popular
-                  price="4.99"
+                  price="29.99"
                   sx={{
                     height: '100%',
                     maxWidth: 460,
@@ -128,7 +128,7 @@ const Page = () => {
                   ]}
                   icon={<PricingPlanIcon name="business" />}
                   name="Business"
-                  price="29.99"
+                  price="79.99"
                   sx={{
                     height: '100%',
                     maxWidth: 460,

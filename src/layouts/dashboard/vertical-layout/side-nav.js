@@ -214,6 +214,7 @@ export const SideNav = (props) => {
             }}
           >
             {sections.map((section, index) => (
+              
               <SideNavSection
                 items={section.items}
                 key={index}

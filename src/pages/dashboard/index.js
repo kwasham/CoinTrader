@@ -80,7 +80,7 @@ const Page = ({topTenData}) => {
                 </div>
               </Stack>
             </Grid>
-            <TopTenTable data={topTenData} />
+            
             <Grid
               xs={12}
               md={4}
@@ -99,6 +99,7 @@ const Page = ({topTenData}) => {
             >
               <OverviewOpenTickets amount={5} />
             </Grid>
+            <TopTenTable data={topTenData} />
             <Grid
               xs={12}
               md={7}

@@ -26,7 +26,7 @@ export const HomeHero = () => {
         pt: '120px',
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <Box maxWidth="sm">
           <Typography
             variant="h1"

@@ -7,6 +7,7 @@ export const tokens = {
     account: 'nav.account',
     analytics: 'nav.analytics',
     auth: 'nav.auth',
+    backtest: 'nav.backtest',
     blog: 'nav.blog',
     browse: 'nav.browse',
     calendar: 'nav.calendar',
